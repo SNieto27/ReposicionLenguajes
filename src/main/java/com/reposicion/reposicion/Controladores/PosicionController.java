@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reposicion.reposicion.Modelos.Equipo;
 import com.reposicion.reposicion.Modelos.Posicion;
+import com.reposicion.reposicion.Repositorios.PosicionRepository;
 import com.reposicion.reposicion.Servicios.Impl.EquipoServiceImpl;
 import com.reposicion.reposicion.Servicios.Impl.PosicionServiceImpl;
 
 @RestController
 @RequestMapping("/api/posiciones")
 public class PosicionController {
+
+    @Autowired
+    private PosicionRepository posicionRepository;
     
     @Autowired
     private PosicionServiceImpl posicionServiceImpl;
@@ -82,6 +86,16 @@ public class PosicionController {
     }
 
     public void actualizarPosicion(Equipo equipo, Equipo rival, int golesEquipo, int golesRival){
+        
+        Posicion posicionEquipo = new Posicion();
+        Posicion posicionRival = new Posicion();
+
+        posicionEquipo.setEquipo(equipo);
+        posicionRival.setEquipo(rival);
+
+        if (golesEquipo > golesRival) {
+            
+        }
 
     }
 
