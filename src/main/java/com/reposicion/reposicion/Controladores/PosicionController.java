@@ -125,6 +125,9 @@ public class PosicionController {
             posicionRival.setPuntos(posicionRival.getPuntos()+1);
         }
 
+        posicionRepository.save(posicionEquipo);
+        posicionRepository.save(posicionRival);
+
     }
 
 }
