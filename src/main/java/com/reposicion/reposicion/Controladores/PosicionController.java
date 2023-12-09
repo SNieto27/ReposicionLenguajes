@@ -80,21 +80,49 @@ public class PosicionController {
                 int golesEquipo = random.nextInt(7)+1;
                 int golesRival = random.nextInt(7)+1;
 
-
+                actualizarPosicion(equipo, rival, golesEquipo, golesRival);
             }
         }
     }
 
     public void actualizarPosicion(Equipo equipo, Equipo rival, int golesEquipo, int golesRival){
         
-        Posicion posicionEquipo = new Posicion();
-        Posicion posicionRival = new Posicion();
+        if (this.posicionRepository.findByEquipo(equipo) == null) {
+            Posicion posicionEquipo = new Posicion();
+            posicionEquipo.setEquipo(equipo);
+            posicionEquipo.setEmpates(0);
+            posicionEquipo.setGanados(0);
+            posicionEquipo.setPerdidos(0);
+            posicionEquipo.setGolesContra(0);
+            posicionEquipo.setGolesFavor(0);
+            posicionEquipo.setPuntos(0);
+        }
 
-        posicionEquipo.setEquipo(equipo);
+        if (this.posicionRepository.findByEquipo(rival) == null) {
+            Posicion posicionRival = new Posicion();
+            posicionRival.setEquipo(rival);
+            posicionRival.setEmpates(0);
+            posicionRival.setGanados(0);
+            posicionRival.setPerdidos(0);
+            posicionRival.setGolesContra(0);
+            posicionRival.setGolesFavor(0);
+            posicionRival.setPuntos(0);
+        }
+
+        Posicion posicionEquipo = this.posicionRepository.findByEquipo(equipo);
+        Posicion posicionRival = this.posicionRepository.findByEquipo(rival);
+
+        
+        
         posicionRival.setEquipo(rival);
 
         if (golesEquipo > golesRival) {
-            
+            posicionEquipo.setPuntos(posicionEquipo.getPuntos()+3);
+        } else if (golesEquipo < golesRival) {
+            posicionRival.setPuntos(posicionRival.getPuntos()+3);
+        } else {
+            posicionEquipo.setPuntos(posicionEquipo.getPuntos()+1);
+            posicionRival.setPuntos(posicionRival.getPuntos()+1);
         }
 
     }
